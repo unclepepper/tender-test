@@ -25,4 +25,6 @@
 ###< symfony/asset-mapper ###
 docker/pgdata
 
-to-do
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###
