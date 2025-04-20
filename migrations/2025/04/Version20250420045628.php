@@ -26,10 +26,8 @@ final class Version20250420045628 extends AbstractMigration
                 number VARCHAR(255) NOT NULL, 
                 external_code VARCHAR(255) DEFAULT NULL, 
                 status VARCHAR(255) DEFAULT NULL, 
-                created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, 
-                updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, 
-                PRIMARY KEY(id)
-                )
+                updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, 
+                PRIMARY KEY(id))
         SQL);
         $this->addSql(<<<'SQL'
             CREATE UNIQUE INDEX UNIQ_42057A7796901F54 ON tender (number)

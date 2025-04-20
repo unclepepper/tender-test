@@ -2,17 +2,54 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\OpenApi\Model\Operation;
+use App\ApiResource\User\UserRequest;
 use App\Repository\UserRepository;
+use App\State\User\CreateProcessor;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-
+#[ApiResource(
+    operations: [
+        new Post(
+            uriTemplate: '/users',
+            openapi: new Operation(
+                responses: [
+                    '201' => [
+                        'description' => 'User created successfully',
+                        'content' => [
+                            'application/json' => [
+                                'schema' => [
+                                    'properties' => [
+                                        'id' => [
+                                            'type' => 'integer',
+                                            'example' => '1',
+                                        ],
+                                        'email' => [
+                                            'type' => 'string',
+                                            'example' => 'user@example.com',
+                                        ]
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ),
+            input: UserRequest::class,
+            processor: CreateProcessor::class
+        ),
+    ],
+    denormalizationContext: ['groups' => ['user:create']]
+)]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface
 {
 
     use TimestampableEntity;
