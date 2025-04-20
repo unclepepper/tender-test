@@ -1,5 +1,5 @@
 ## Tender Test Task
 
 
-### To install the project, run the command:
+### Для создания и запуска проекта, выполнить команду^
 ``` make init ```

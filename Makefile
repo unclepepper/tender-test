@@ -5,7 +5,7 @@ DOCKER="$(shell which docker)"
 CONTAINER_PHP="php-unit"
 
 
-init: generate-env  up
+init: generate-env  up  right m-migrate generate-keypair
 restart: down up
 
 ##
@@ -82,3 +82,10 @@ ip:
 	${DOCKER} inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' ${CONTAINER_PHP}
 
 .PHONY: m-create m-list m-diff m-up m-migrate m-prev cc right ip
+
+generate-keypair:
+	${DOCKER_COMPOSE} exec ${CONTAINER_PHP} bin/console lexik:jwt:generate-keypair --skip-if-exists -n
+
+
+tender-create:
+	${DOCKER_COMPOSE} exec ${CONTAINER_PHP} bin/console app:tender-create --file=test_task_data.csv

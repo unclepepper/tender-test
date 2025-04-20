@@ -8,13 +8,14 @@ use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use App\ApiResource\Tender\TenderResponse;
 use App\Entity\Tender;
-use App\Repository\TenderRepository;
+use App\Service\Tender\TenderCreateServiceInterface;
 
 
 final class CreateProcessor implements ProcessorInterface
 {
     public function __construct(
-        private readonly TenderRepository $tenderRepository,
+        private TenderCreateServiceInterface $createService,
+
     ) {}
 
     /**
@@ -25,9 +26,8 @@ final class CreateProcessor implements ProcessorInterface
         Operation $operation,
         array $uriVariables = [],
         array $context = []
-    ): TenderResponse
+    ): ?TenderResponse
     {
-
 
         $tender = new Tender();
 
@@ -37,16 +37,9 @@ final class CreateProcessor implements ProcessorInterface
         $tender->setStatus($data->getStatus());
         $tender->setUpdatedAt($data->getUpdatedAt());
 
-        $this->tenderRepository->save($tender, true);
+        return $this->createService->create($tender);
 
-        return new TenderResponse(
-            $tender->getId(),
-            $tender->getTitle(),
-            $tender->getNumber(),
-            $tender->getExternalCode(),
-            $tender->getStatus(),
-            $tender->getUpdatedAt()
-        );
     }
+
 
 }

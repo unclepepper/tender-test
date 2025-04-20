@@ -103,6 +103,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
     normalizationContext: ['groups' => ['tender:read']],
     denormalizationContext: ['groups' => ['tender:create']],
+    security: "is_granted('ROLE_USER')"
 )]
 #[ApiFilter(TenderStatusFilter::class, properties: ['status' => 'exact'])]
 #[ORM\Entity(repositoryClass: TenderRepository::class)]
