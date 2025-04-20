@@ -89,3 +89,6 @@ generate-keypair:
 
 tender-create:
 	${DOCKER_COMPOSE} exec ${CONTAINER_PHP} bin/console app:tender-create --file=test_task_data.csv
+
+user-create:
+	${DOCKER_COMPOSE} exec ${CONTAINER_PHP} bin/console app:user-create

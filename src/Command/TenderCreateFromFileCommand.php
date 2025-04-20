@@ -44,9 +44,7 @@ class TenderCreateFromFileCommand extends Command
         );
     }
 
-    /**
-     * @throws DateMalformedStringException
-     */
+
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
