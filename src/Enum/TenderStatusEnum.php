@@ -3,14 +3,13 @@
 namespace App\Enum;
 
 
-
 enum TenderStatusEnum: string
 {
     case STATUS_CLOSE = 'Закрыто';
 
     case STATUS_CANCELED = 'Отменено';
 
-    case STATUS_OPEN        = 'Открыто';
+    case STATUS_OPEN = 'Открыто';
     public const array VALUES = [
         'Закрыто',
         'Отменено',

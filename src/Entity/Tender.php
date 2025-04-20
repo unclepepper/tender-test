@@ -20,7 +20,7 @@ class Tender
     #[ORM\Column(length: 255)]
     private string $title;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private string $number;
 
     #[ORM\Column(length: 255, nullable: true)]

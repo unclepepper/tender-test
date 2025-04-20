@@ -31,6 +31,9 @@ final class Version20250420045628 extends AbstractMigration
                 PRIMARY KEY(id)
                 )
         SQL);
+        $this->addSql(<<<'SQL'
+            CREATE UNIQUE INDEX UNIQ_42057A7796901F54 ON tender (number)
+        SQL);
 
     }
 
