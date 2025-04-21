@@ -26,10 +26,6 @@ services:
     App\State\User\CreateProcessor:
         bind:
             $processor: '@api_platform.doctrine.orm.state.persist_processor'
-#
-#    App\State\Tender\CreateProcessor:
-#        bind:
-#            $processor: '@api_platform.doctrine.orm.state.persist_processor'
 
     App\Decorator\OpenApi\OpenApiFactory:
         decorates: 'api_platform.openapi.factory'
