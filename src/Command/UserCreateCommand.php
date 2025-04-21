@@ -20,6 +20,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class UserCreateCommand extends Command
 {
 
+    const string EMAIL = 'user@example.com';
+    const string PASSWORD = 'password';
+
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
     )
@@ -27,14 +30,14 @@ class UserCreateCommand extends Command
         parent::__construct();
     }
 
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
         $user = new User();
-        $user->setEmail('user@example.com');
-        $user->setPassword('string');
+
+        $user->setEmail(self::EMAIL);
+        $user->setPassword(self::PASSWORD);
 
 
         $this->entityManager->persist($user);

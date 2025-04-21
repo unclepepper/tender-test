@@ -5,9 +5,11 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\OpenApi\Model\Operation;
+use ApiPlatform\OpenApi\Model\RequestBody;
 use App\ApiResource\User\UserRequest;
 use App\Repository\UserRepository;
 use App\State\User\CreateProcessor;
+use ArrayObject;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -39,6 +41,25 @@ use Symfony\Component\Security\Core\User\UserInterface;
                         ],
                     ],
                 ],
+                requestBody: new RequestBody(
+                    content: new ArrayObject([
+                            'application/json' => [
+                                'schema' => [
+                                    'properties' => [
+                                        'email' => [
+                                            'type' => 'string',
+                                            'example' => 'user@example.com',
+                                        ],
+                                        'password' => [
+                                            'type' => 'string',
+                                            'example' => 'password',
+                                        ],
+                                    ],
+                                ],
+                            ]
+                        ]
+                    )
+                )
             ),
             input: UserRequest::class,
             processor: CreateProcessor::class
