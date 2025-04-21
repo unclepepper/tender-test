@@ -22,8 +22,6 @@ class TenderCreateService implements TenderCreateServiceInterface
     public function create(Tender $tender): ?TenderResponse
     {
 
-
-
         $this->entityManager->clear();
         $this->entityManager->persist($tender);
         $this->entityManager->flush();

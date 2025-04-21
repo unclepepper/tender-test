@@ -7,7 +7,6 @@ namespace App\Command;
 use App\Common\Parse\ParseFileInterface;
 use App\Entity\Tender;
 use App\Enum\TenderStatusEnum;
-use DateMalformedStringException;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;

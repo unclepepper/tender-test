@@ -11,6 +11,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 
 #[AsCommand(
@@ -25,6 +26,7 @@ class UserCreateCommand extends Command
 
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
+        private readonly UserPasswordHasherInterface $passwordHasher,
     )
     {
         parent::__construct();
@@ -34,17 +36,19 @@ class UserCreateCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
+
         $user = new User();
 
         $user->setEmail(self::EMAIL);
-        $user->setPassword(self::PASSWORD);
 
+        $hashedPassword = $this->passwordHasher->hashPassword(
+            $user,
+            self::PASSWORD
+        );
+
+        $user->setPassword($hashedPassword);
 
         $this->entityManager->persist($user);
-
-        $this->entityManager->flush();
-        $this->entityManager->clear();
-
 
         $this->entityManager->flush();
         $this->entityManager->clear();
@@ -54,7 +58,7 @@ class UserCreateCommand extends Command
 
         print_r([
             'email' => $user->getEmail(),
-            'password' => $user->getPassword(),
+            'password' => self::PASSWORD,
         ]);
 
         return Command::SUCCESS;

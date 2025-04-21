@@ -38,10 +38,12 @@ final class CreateProcessor implements ProcessorInterface
             $data,
             $data->getPassword()
         );
+
         $data->setPassword($hashedPassword);
         $data->eraseCredentials();
 
         $user = new User();
+
         $user->setEmail($data->getEmail());
         $user->setPassword($hashedPassword);
 
