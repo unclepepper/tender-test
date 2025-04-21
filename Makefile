@@ -5,7 +5,7 @@ DOCKER="$(shell which docker)"
 CONTAINER_PHP="php-unit"
 
 
-init: generate-env  up ci right m-migrate generate-keypair
+init: generate-env  up ci  m-migrate generate-keypair right
 restart: down up
 
 ##
